@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+    muse-dev:
+        container_name: muse
+        image: muse-dev:1.0.0
+        build:
+            context: .
+            target: development
+            dockerfile: ./Dockerfile
+        #command: npm run start:dev
+        ports:
+            - 3000:3000
+        networks:
+            - nesjs-network
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped
+networks:
+    nesjs-network:
