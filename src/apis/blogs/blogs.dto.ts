@@ -18,7 +18,7 @@ export class BlogsDto {
 
   @IsNotEmpty()
   @IsString()
-  status: string;
+  status: 'pending' | 'accepted' | 'rejected';;
     
 @IsOptional()
 @IsNumber()
