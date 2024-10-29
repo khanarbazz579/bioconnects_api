@@ -7,7 +7,7 @@ export class CanRedisService {
   private client;
 
   constructor(private configService: ConfigService) {
-    this.createRedisClient();
+    // this.createRedisClient();
   }
 
   async createRedisClient() {

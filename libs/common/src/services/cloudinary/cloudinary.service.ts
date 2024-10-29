@@ -8,24 +8,24 @@ export class CloundinaryService {
   private _allowedVideoExtension = [];
 
   constructor(private _configService: ConfigService) {
-    cloudinary.config({
-      api_key: this._configService.get('CLOUDINARY_API_KEY'),
-      api_secret: this._configService.get('CLOUDINARY_API_SECRET'),
-      cloud_name: this._configService.get('CLOUDINARY_CLOUD_NAME'),
-      secure: true,
-    });
+    // cloudinary.config({
+    //   api_key: this._configService.get('CLOUDINARY_API_KEY'),
+    //   api_secret: this._configService.get('CLOUDINARY_API_SECRET'),
+    //   cloud_name: this._configService.get('CLOUDINARY_CLOUD_NAME'),
+    //   secure: true,
+    // });
 
     //console.log(this._configService.get('CLOUDINARY_ALLOWED_IMAGE_EXTENSIONS'));
     //console.log(
       // typeof this._configService.get('CLOUDINARY_ALLOWED_VIDEO_EXTENSIONS'),
     // );
 
-    this._allowedImageExtension = JSON.parse(
-      this._configService.get('CLOUDINARY_ALLOWED_IMAGE_EXTENSIONS'),
-    );
-    this._allowedVideoExtension = JSON.parse(
-      this._configService.get('CLOUDINARY_ALLOWED_VIDEO_EXTENSIONS'),
-    );
+    // this._allowedImageExtension = JSON.parse(
+    //   this._configService.get('CLOUDINARY_ALLOWED_IMAGE_EXTENSIONS'),
+    // );
+    // this._allowedVideoExtension = JSON.parse(
+    //   this._configService.get('CLOUDINARY_ALLOWED_VIDEO_EXTENSIONS'),
+    // );
   }
 
   async uploadViaPath(path: string) {
