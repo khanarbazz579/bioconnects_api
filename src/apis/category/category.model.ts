@@ -1,9 +1,8 @@
 import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { User } from 'src/core/user/user.model';
-import { Category } from '../category/category.model';
 
-@Table({ tableName: 'blogs' })
-export class Blogs extends Model<Blogs> {
+@Table({ tableName: 'categories' })
+export class Category extends Model<Category> {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -16,39 +15,17 @@ export class Blogs extends Model<Blogs> {
   @Column({
     type: DataType.STRING,
     field: 'status',
-    defaultValue: 'pending'
+    defaultValue: 'active'
   })
-  status: 'pending' | 'accepted' | 'rejected';
+  status: 'active' | 'inactive' ;
 
   @Column({
     type: DataType.STRING,
-    field: 'title',
+    field: 'name',
     allowNull: false,
   })
-  title: string;
-
-  @Column({
-    type: DataType.TEXT,
-    field: 'body'
-  })
-  body: string;
-
-  @Column({
-    type: DataType.DATE,
-    field: 'published_at',
-  })
-  publishedAt: string;
-  
-  @ForeignKey(() => Category)
-  @Column({
-    type: DataType.INTEGER,
-    field: 'category_id',
-  })
-  categoryId: number;
-
-  @BelongsTo(() => Category, 'categoryId')
-  category: Category;
-
+  name: string;
+    
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,

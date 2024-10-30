@@ -6,6 +6,7 @@ import { Role } from './core/auth/role/role.model';
 import { Permission } from './core/auth/permission/permission.model';
 import { Comments } from './apis/comments/comments.model';
 import { Blogs } from './apis/blogs/blogs.model';
+import { Category } from './apis/category/category.model';
 
 
 export const MODELS: ModelCtor<Model<any, any>>[] = [
@@ -16,6 +17,7 @@ export const MODELS: ModelCtor<Model<any, any>>[] = [
   Role,
   Permission,
   Comments,
-  Blogs
+  Blogs,
+  Category
   
 ];
