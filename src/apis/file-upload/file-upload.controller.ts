@@ -8,6 +8,8 @@ import {
   HttpCode,
   Req,
   Request,
+  UnprocessableEntityException,
+  Query,
 } from '@nestjs/common';
 import { FileUploadDto } from './file-upload.dto';
 import { FileUploadService } from './file-upload.service';
@@ -18,20 +20,44 @@ export class FileUploadController {
   constructor(private fileUploadService: FileUploadService) {}
 
   @Post('upload')
-  @UseInterceptors(FilesInterceptor('files'))
-  async create(@UploadedFiles() files, @Req() request?: Request) {
-    return this.fileUploadService.processFileUpload(files, request);
-  }
-
-  @Post('upload-media')
-  @UseInterceptors(FilesInterceptor('files'))
-  async uploadMedia(@UploadedFiles() files, @Req() request?: Request) {
-    return this.fileUploadService.uploadMedia(files, request);
+  @UseInterceptors(
+    FilesInterceptor('files'),
+    )
+  async create(
+    @UploadedFiles() files,
+    @Query('channel') channel: 's3'|'cloudinary',
+  ) {
+    if(channel){
+      switch (channel) {
+        case 's3':        
+        return this.fileUploadService.uploadFileToS3(files);
+        case 'cloudinary':        
+          return this.fileUploadService.uploadFileToCloudinary(files); 
+        default:
+          throw new UnprocessableEntityException('Channel should be s3 or cloudinary');
+      }
+    }else{
+      return this.fileUploadService.uploadFile(files)
+    }
   }
 
   @Post('delete')
   @HttpCode(200)
-  async delete(@Body(ValidationPipe) fileUploadDto: FileUploadDto) {
-    return this.fileUploadService.deleteFromS3(fileUploadDto);
+  async delete(
+    @Body(ValidationPipe) fileUploadDto: FileUploadDto,
+    @Query('channel') channel: 's3'|'cloudinary'
+    ) {
+      if(channel){
+        switch (channel) {
+          case 's3':        
+          return this.fileUploadService.deleteFromS3(fileUploadDto);
+          case 'cloudinary':        
+          return this.fileUploadService.deleteFromCloudinary(fileUploadDto) 
+        default:
+          throw new UnprocessableEntityException('Channel should be s3 or cloudinary');
+        }
+      }else{
+      return this.fileUploadService.deleteFiles(fileUploadDto)
+    }
   }
 }

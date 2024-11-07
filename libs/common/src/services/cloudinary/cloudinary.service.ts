@@ -1,31 +1,74 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { v2 as cloudinary } from 'cloudinary';
+import multer = require('multer');
 
 @Injectable({})
 export class CloundinaryService {
   private _allowedImageExtension = [];
   private _allowedVideoExtension = [];
 
-  constructor(private _configService: ConfigService) {
-    // cloudinary.config({
-    //   api_key: this._configService.get('CLOUDINARY_API_KEY'),
-    //   api_secret: this._configService.get('CLOUDINARY_API_SECRET'),
-    //   cloud_name: this._configService.get('CLOUDINARY_CLOUD_NAME'),
-    //   secure: true,
-    // });
+  public cloudinaryV2 = cloudinary;
+  constructor(
+    private configService: ConfigService
+  ){
+    const CLOUD_NAME = this.configService.get('CLOUDINARY_CLOUD_NAME'),
+    API_KEY = this.configService.get('CLOUDINARY_API_KEY'),
+    API_SECRET = this.configService.get('CLOUDINARY_API_SECRET')
 
-    //console.log(this._configService.get('CLOUDINARY_ALLOWED_IMAGE_EXTENSIONS'));
-    //console.log(
-      // typeof this._configService.get('CLOUDINARY_ALLOWED_VIDEO_EXTENSIONS'),
-    // );
+    this.cloudinaryV2.config({ 
+        cloud_name: CLOUD_NAME, 
+        api_key: API_KEY, 
+        api_secret: API_SECRET 
+      });
+  }
+  
+  public static getFilesStorage() {
+    // Set File Storage Path
+    const storage = multer.diskStorage({
+      destination: function(req, file, cb) {
+        cb(null, './');
+      },
+      filename: function(req, file, cb) {
+        cb(null, file.originalname);
+      },
+    });
+    return storage;
+  }
 
-    // this._allowedImageExtension = JSON.parse(
-    //   this._configService.get('CLOUDINARY_ALLOWED_IMAGE_EXTENSIONS'),
-    // );
-    // this._allowedVideoExtension = JSON.parse(
-    //   this._configService.get('CLOUDINARY_ALLOWED_VIDEO_EXTENSIONS'),
-    // );
+  // public uploadFileToCloudinary(filePath:string){
+  //   return new Promise((resolve, reject) =>{
+  //       this.cloudinaryV2.uploader.upload(filePath, (error, result) =>{
+  //           if(error) {
+  //               reject(error) ;
+  //           }
+  //           resolve(result)
+  //         });
+  //   })
+  // }
+
+  public uploadFileToCloudinary(file , resourceType){
+    return new Promise((resolve, reject) =>{
+      cloudinary.uploader.upload_stream(resourceType, (err, res) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          console.log(`Upload succeed: ${res}`);
+          resolve(res);
+        }
+      }).end(file.buffer);
+    })
+  }
+  public deleteFileFromCloudinary(name){
+    return new Promise(async(resolve , reject) =>{
+      try {      
+       const result = await this.cloudinaryV2.uploader.destroy(name)
+       resolve(result)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   async uploadViaPath(path: string) {
@@ -94,4 +137,6 @@ export class CloundinaryService {
     }
     
   }
+
+
 }

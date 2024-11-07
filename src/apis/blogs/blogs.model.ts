@@ -28,6 +28,20 @@ export class Blogs extends Model<Blogs> {
   title: string;
 
   @Column({
+    type: DataType.STRING,
+    field: 'banner_image'
+  })
+  bannedImage: string;
+
+  @Column({
+    type: DataType.TEXT,
+    field: 'description',
+    allowNull: false,
+  })
+  description: string;
+
+
+  @Column({
     type: DataType.TEXT,
     field: 'body'
   })

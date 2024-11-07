@@ -14,6 +14,14 @@ export class BlogsDto {
 
   @IsNotEmpty()
   @IsString()
+  bannedImage: string;
+
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+
+  @IsNotEmpty()
+  @IsString()
   body: string;
 
   @IsNotEmpty()
