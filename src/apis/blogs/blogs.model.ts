@@ -36,7 +36,7 @@ export class Blogs extends Model<Blogs> {
   @Column({
     type: DataType.TEXT,
     field: 'description',
-    allowNull: false,
+    defaultValue:' test'
   })
   description: string;
 
