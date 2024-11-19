@@ -42,10 +42,10 @@ export class Blogs extends Model<Blogs> {
 
 
   @Column({
-    type: DataType.TEXT,
+    type: DataType.JSONB,
     field: 'body'
   })
-  body: string;
+  body: any;
 
   @Column({
     type: DataType.DATE,

@@ -6,7 +6,7 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-// import { User } from 'src/core/user/user.model';
+import { User } from 'src/core/user/user.model';
 import { Role } from '../role/role.model';
 
 @Table({ tableName: 'user_role' })
@@ -19,12 +19,12 @@ export class UserRole extends Model<UserRole> {
   })
   id: number;
 
-  // @ForeignKey(() => User)
-  // @Column({ type: DataType.INTEGER, field: 'user_id' })
-  // userId: number;
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, field: 'user_id' })
+  userId: number;
 
-  // @BelongsTo(() => User, 'userId')
-  // user: User;
+  @BelongsTo(() => User, 'userId')
+  user: User;
 
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, field: 'role_id' })

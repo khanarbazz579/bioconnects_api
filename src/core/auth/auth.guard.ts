@@ -45,28 +45,24 @@ export class CanAuthGuard implements CanActivate {
         return false;
       }
 
-      const appId = request.headers['x-app-id'];
-      if (!appId) {
-        //console.log('request auth x app id not found'); 
+      // const validateUser: any = await this.validateRequest(
+      //   appContext,
+      //   token,
+      //   appId,
+      // );
+      const user = await queryService.executeQuery<any[]>(
+        Query.getActiveUserAndPermissions(decodedValue.id),
+      );
+      if (!user.length) {
         return false;
       }
-      const validateUser: any = await this.validateRequest(
-        appContext,
-        token,
-        appId,
-      );
-      // const user = await queryService.executeQuery<any[]>(
-      //   Query.getActiveUserAndPermissions(decodedValue.id),
-      // );
-      // if (!user.length) {
-      //   return false;
-      // }
-      // request['user'] = user[0];
+      request['user'] = user[0];
       request['user'] = {
         email: decodedValue.email,
-        ...validateUser,
-        permissions: Object.keys(validateUser['appPermissions']),
-        roles: Object.values(validateUser['appRoles']),
+        ...user[0]
+        // // ...validateUser,
+        // permissions: user[0]['permissions'],
+        // roles: user[0]['roles']
       };
       request['token'] = { token: token, type: decodedValue.type };
       /**
