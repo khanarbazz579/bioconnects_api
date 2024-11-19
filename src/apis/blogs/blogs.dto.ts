@@ -23,11 +23,11 @@ export class BlogsDto {
 
   @IsNotEmpty()
   @IsArray()
-  body: string;
+  content: string;
 
  @IsOptional()
   @IsString()
-  status: 'pending' | 'accepted' | 'rejected';;
+  status: 'pending' | 'accepted' | 'rejected';
     
 @IsOptional()
 @IsNumber()
