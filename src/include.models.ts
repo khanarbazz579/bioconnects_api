@@ -7,6 +7,7 @@ import { Permission } from './core/auth/permission/permission.model';
 import { Comments } from './apis/comments/comments.model';
 import { Blogs } from './apis/blogs/blogs.model';
 import { Category } from './apis/category/category.model';
+import { Subscriptions } from './apis/subscriptions/subscriptions.model';
 
 
 export const MODELS: ModelCtor<Model<any, any>>[] = [
@@ -18,6 +19,7 @@ export const MODELS: ModelCtor<Model<any, any>>[] = [
   Permission,
   Comments,
   Blogs,
-  Category
+  Category,
+  Subscriptions
   
 ];
