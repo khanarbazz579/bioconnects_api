@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -21,7 +22,7 @@ export class BlogsDto {
   description: string;
 
   @IsNotEmpty()
-  @IsString()
+  @IsArray()
   body: string;
 
   @IsNotEmpty()
