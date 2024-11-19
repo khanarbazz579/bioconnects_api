@@ -5,14 +5,13 @@ import { QueryModule } from 'src/core/query/query.module';
 import { CommonModule } from '../common.module';
 import { CanCommonModule } from '@can/common';
 import { RedisModule } from '../services/redis/redis.module';
-
 @Module({
   imports: [
     ScheduleModule.forRoot(),
     CommonModule,
     CanCommonModule,
     QueryModule,
-    RedisModule
+    RedisModule,
   ],
   providers: [CronService],
   exports: [ScheduleModule, CronService],
