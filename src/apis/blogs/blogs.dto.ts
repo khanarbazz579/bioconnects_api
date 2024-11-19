@@ -25,7 +25,7 @@ export class BlogsDto {
   @IsArray()
   body: string;
 
-  @IsNotEmpty()
+ @IsOptional()
   @IsString()
   status: 'pending' | 'accepted' | 'rejected';;
     
