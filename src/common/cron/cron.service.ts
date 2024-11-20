@@ -12,7 +12,7 @@ export class CronService {
     private apiService: ApiService
   ) {}
 
-  @Cron(CronExpression.EVERY_5_MINUTES)
+  // @Cron(CronExpression.EVERY_5_MINUTES)
   async restartApp(){
   const options = {
     'method': 'GET',
