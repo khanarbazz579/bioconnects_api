@@ -21,6 +21,17 @@ export class UserService {
   }
 
   async create(user: UserDto): Promise<UserDto> {
+    if ('type' in user && user.type == 'internal' && user.name) {
+      user.firstName = user.name.split(' ')[0];
+      user.middleName =
+        user.name.split(' ').length > 2 ? user.name.split(' ')[1] : '';
+      user.lastName =
+        user.name.split(' ').length > 1
+          ? user.name.split(' ').length > 2
+            ? user.name.split(' ')[2]
+            : user.name.split(' ')[1]
+          : '';
+    }
     return excludePropertyFromModel<User, UserDto>(
       await this.userRepository.create(<any>user),
       ['password', 'loginOtp', 'resetPasswordOtpExpiresIn', 'resetPasswordOtp'],

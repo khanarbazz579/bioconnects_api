@@ -19,15 +19,15 @@ enum Gender {
 export class UserDto {
   @IsNotEmpty()
   @ApiProperty()
-  readonly firstName: string;
+   firstName: string;
 
   @IsOptional()
   @ApiProperty()
-  readonly middleName: string;
+   middleName: string;
 
   @IsNotEmpty()
   @ApiProperty()
-  readonly lastName: string;
+   lastName: string;
 
   @IsOptional()
   readonly name: string;

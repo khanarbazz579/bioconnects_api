@@ -12,5 +12,10 @@ export const excludedRoutes = [
   '/v1/auth/reset-password',
   // Normal Routes
   '/v1/users',
-  '/v1/health-check'
+  '/v1/health-check',
+  '/v1/blogs',
+  '/v1/categories',
+  '/v1/subscriptions'
+
+
 ];
