@@ -21,7 +21,7 @@ export class UserService {
   }
 
   async create(user: UserDto): Promise<UserDto> {
-    if ('type' in user && user.type == 'internal' && user.name) {
+    if (user.name) {
       user.firstName = user.name.split(' ')[0];
       user.middleName =
         user.name.split(' ').length > 2 ? user.name.split(' ')[1] : '';
