@@ -39,7 +39,7 @@ async function bootstrap() {
   // Use Custom Logger instead of Default Logger
   app.useLogger(new CanLogger());
   // Add Global Authentication to Every Routes
-  app.useGlobalGuards(new CanAuthGuard());
+  // app.useGlobalGuards(new CanAuthGuard());
   // Add Global Role Authorization to Every Routes
   // app.useGlobalGuards(new CanPermissionsGuard());
   // Add Global Filters to Parse the errors
