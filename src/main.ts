@@ -42,7 +42,7 @@ async function bootstrap() {
   // app.useGlobalGuards(new CanAuthGuard());
   // Add Global Role Authorization to Every Routes
   // app.useGlobalGuards(new CanPermissionsGuard());
-  //// Add Global Filters to Parse the errors
+  // Add Global Filters to Parse the errors
   app.useGlobalFilters(new HttpExceptionFilter());
 
   app.use(bodyParser.json({ limit: '50mb' }));
