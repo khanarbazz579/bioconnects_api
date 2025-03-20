@@ -16,7 +16,6 @@ export const excludedRoutes = [
   '/v1/blogs',
   '/v1/categories',
   '/v1/subscriptions',
-  '/v1/blogs/:id',
-
+  '/v1/blogs/:id'
 
 ];

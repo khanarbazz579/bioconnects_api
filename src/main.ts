@@ -45,6 +45,7 @@ async function bootstrap() {
   // Add Global Filters to Parse the errors
   app.useGlobalFilters(new HttpExceptionFilter());
 
+  
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
